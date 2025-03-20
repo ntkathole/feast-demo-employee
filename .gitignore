@@ -172,3 +172,32 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+*.egg-info/
+dist/
+build/
+.venv
+
+# Pytest
+.cache
+*.cover
+*.log
+.coverage
+nosetests.xml
+coverage.xml
+*.hypothesis/
+*.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# OS generated files
+.DS_Store
+Thumbs.db
