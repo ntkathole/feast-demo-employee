@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 from feast import FeatureStore
+from datetime import datetime
+import joblib
+
 
 # Initialize Feature Store
 store = FeatureStore(repo_path="feature_repo")
@@ -27,8 +30,15 @@ features = [
 
 # Fetch features for prediction
 prediction_df = store.get_historical_features(entity_df=entity_df, features=features).to_df()
+
+if prediction_date > datetime.now():
+    print("🔮 Future prediction! Converting date to day of week...")
+    prediction_df["day_of_week"] = prediction_df["event_timestamp"].dt.day_name()  # Convert to day of week since model can't predict future dates
+    prediction_df["is_tuesday_or_friday"] = prediction_df["day_of_week"].apply(lambda x: 1 if x in [1, 4] else 0)
+
 print("Sample Features from feast store:")
-print(prediction_df.head())
+print(prediction_df)
+
 # Convert categorical feature to numeric
 prediction_df["day_of_week"] = pd.Categorical(prediction_df["day_of_week"]).codes
 
@@ -45,7 +55,6 @@ for col in missing_columns:
 X_pred = prediction_df[feature_columns]
 
 # Load the trained model
-import joblib
 model = joblib.load("attendance_model.pkl")
 
 # Ensure the feature columns order matches the model training
@@ -66,9 +75,6 @@ except AttributeError:
 # Show predictions
 prediction_df["predicted_in_office"] = predictions
 prediction_df["predicted_probability"] = predicted_probs
-
-print("\nSample Features for Prediction:")
-print(prediction_df.head())
 
 print("🔹 Prediction Results:")
 print(prediction_df[["employee_name", "predicted_in_office", "predicted_probability"]])

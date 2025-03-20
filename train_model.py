@@ -49,9 +49,6 @@ y = training_df["in_office"]
 print("Label Distribution in Training Data:")
 print(training_df["in_office"].value_counts())
 
-print("Sample Features for Training:")
-print(training_df.head())
-
 # Train-test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
