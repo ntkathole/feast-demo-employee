@@ -21,6 +21,8 @@ entity_df = pd.DataFrame({
 
 features = [
     "employee_attendance_features:day_of_week",
+    "employee_attendance_features:in_office",
+    "employee_attendance_features:is_tuesday_or_friday"
 ]
 
 # Fetch features for prediction
@@ -32,7 +34,7 @@ prediction_df["day_of_week"] = pd.Categorical(prediction_df["day_of_week"]).code
 
 # Drop non-feature columns to match training phase
 feature_columns = [
-    'day_of_week',
+    'day_of_week', 'is_tuesday_or_friday'
 ]
 
 # Ensure all required columns are present

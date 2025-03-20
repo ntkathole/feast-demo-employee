@@ -8,7 +8,7 @@ store = FeatureStore(repo_path="feature_repo")
 # Prepare an entity dataframe with required columns
 entity_df = pd.DataFrame({
     "employee_name": ["Jitendra", "Gaurav", "Dipanshu"],
-    "event_timestamp": pd.to_datetime(["2025-03-20", "2025-03-20", "2025-03-20"])
+    "event_timestamp": pd.to_datetime(["2025-03-20", "2025-03-19", "2025-03-18"])
 })
 
 # Specify the features you want to fetch
